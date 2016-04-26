@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'Presenter_Example', :exclusive => true do
+  pod 'Presenter', :path => '../'
+end
+
+target 'Presenter_Tests', :exclusive => true do
+  pod 'Presenter', :path => '../'
+
+  
+end

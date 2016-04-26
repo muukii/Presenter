@@ -1,0 +1,14 @@
+PODS:
+  - Presenter (0.1.0)
+
+DEPENDENCIES:
+  - Presenter (from `../`)
+
+EXTERNAL SOURCES:
+  Presenter:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Presenter: aba8e72fa152b049a5b5d9455afa6f52a6a6b43b
+
+COCOAPODS: 0.39.0

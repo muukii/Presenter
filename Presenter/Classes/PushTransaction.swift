@@ -1,4 +1,4 @@
-// PresenterType.swift
+// PushTransaction.swift
 //
 // Copyright (c) 2015 muukii
 //
@@ -22,8 +22,15 @@
 
 import UIKit
 
-public protocol PresenterType {
+public struct PushTransaction<T: UIViewController> {
     
-    associatedtype ViewController: UIViewController
-    func createViewController() -> ViewController
+    public weak var viewController: T?
+    
+    public func pop() {
+        self.viewController?.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    public init(viewController: T) {
+        self.viewController = viewController
+    }
 }

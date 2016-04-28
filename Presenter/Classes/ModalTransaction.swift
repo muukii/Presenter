@@ -1,4 +1,4 @@
-// PresenterType.swift
+// ModalTransaction.swift
 //
 // Copyright (c) 2015 muukii
 //
@@ -20,10 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-public protocol PresenterType {
+public struct ModalTransaction<T: UIViewController> {
     
-    associatedtype ViewController: UIViewController
-    func createViewController() -> ViewController
+    public weak var viewController: T?
+    
+    public func dismiss() {
+        self.viewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    public init(viewController: T) {
+        self.viewController = viewController
+    }
 }

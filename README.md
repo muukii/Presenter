@@ -7,7 +7,112 @@
 
 ## Usage
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+### Clean Screen Transition
+
+```swift
+MyViewController.Presenter(userID: "muukii").push(self.navigationController)
+MyViewController.Presenter(userID: "muukii").present(self)
+```
+
+#### Advanced
+
+```swift
+MyViewController.Presenter(userID: "muukii").push(self.navigationController) { (transaction: PushTransaction<MyViewController> in
+
+    // Pop    
+    transaction.pop()
+
+    // Get
+    transaction.viewController
+}
+
+MyViewController.Presenter(userID: "muukii").present(self) { (transaction: ModalTransaction<MyViewController>) in
+
+    // Pop    
+    transaction.dismiss()
+
+    // Get
+    transaction.viewController
+}
+```
+
+
+### Create Presenter
+
+Push
+
+```swift
+extension MyViewController {
+
+    final class Presenter: PushPresenter {
+
+        let userID: String
+
+        init(userID: String) {
+            self.userID = userID
+        }
+
+        func createViewController() -> MyViewController {
+            let controller = MessagesViewController() // Init from Stroyboard or XIB
+            controller.userID = userID
+            return controller
+        }    
+    }
+}
+```
+
+Present
+
+```swift
+extension MyViewController {
+
+    final class Presenter: ModalPresenter {
+
+        let userID: String
+
+        init(userID: String) {
+            self.userID = userID
+        }
+
+        func parentController(viewController: UIViewController) -> UIViewController? {
+            return UINavigationController(rootViewController: viewController)
+        }
+
+        func createViewController() -> MyViewController {
+            let controller = MessagesViewController() // Init from Stroyboard or XIB
+            controller.userID = userID
+            return controller
+        }    
+    }
+}
+```
+
+Present or Push
+
+```swift
+extension MyViewController {
+
+    final class Presenter: PushPresenter, ModalPresenter {
+
+        let userID: String
+
+        init(userID: String) {
+            self.userID = userID
+        }
+
+        func parentController(viewController: UIViewController) -> UIViewController? {
+            // Call Present() only
+            return UINavigationController(rootViewController: viewController)
+        }
+
+        func createViewController() -> MyViewController {
+            let controller = MessagesViewController() // Init from Stroyboard or XIB
+            controller.userID = userID
+            return controller
+        }    
+    }
+}
+```
 
 ## Requirements
 

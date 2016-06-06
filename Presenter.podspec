@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "muukii" => "m@muukii.me" }
   s.source           = { :git => "https://github.com/muukii/Presenter.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.social_media_url = 'https://twitter.com/muukii0803'
 
   s.ios.deployment_target = '8.0'
 

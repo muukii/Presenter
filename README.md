@@ -5,6 +5,12 @@
 [![License](https://img.shields.io/cocoapods/l/Presenter.svg?style=flat)](http://cocoapods.org/pods/Presenter)
 [![Platform](https://img.shields.io/cocoapods/p/Presenter.svg?style=flat)](http://cocoapods.org/pods/Presenter)
 
+Screen transition with safe and clean code.
+
+With Presenter, you can…
+- Assure that the ViewController's requirements are met, such as a ViewModel to be injected.
+- Constrain transition types (push or present modal or both)
+
 ## Usage
 
 ### Clean Screen Transition

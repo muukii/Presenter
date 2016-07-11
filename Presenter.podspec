@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Presenter"
-  s.version          = "0.1.0"
+  s.version          = "0.2.0"
   s.summary          = "Presenter protect ViewController"
   s.description      = <<-DESC
 						Presenter protect ViewController.

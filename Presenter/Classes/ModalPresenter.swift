@@ -42,7 +42,7 @@ extension ModalPresenter {
         
     }
     
-    public func present(presentingViewController: UIViewController, @noescape tweak: ModalTransaction<ViewController> -> Void = { _ in }) {
+    public func present(presentingViewController: UIViewController, @noescape tweak: ModalTransaction<ViewController> -> Void = { _ in }) -> Self {
         
         let controller = createViewController()
         willPresent(controller)
@@ -53,6 +53,8 @@ extension ModalPresenter {
             
             self.didPresent(controller)
         })
+        
+        return self
     }
 }
 

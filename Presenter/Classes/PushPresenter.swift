@@ -41,7 +41,7 @@ extension PushPresenter {
         
     }
     
-    public func push(navigationController: UINavigationController?, @noescape tweak: PushTransaction<ViewController> -> Void = { _ in }) {
+    public func push(navigationController: UINavigationController?, @noescape tweak: PushTransaction<ViewController> -> Void = { _ in }) -> Self {
         
         let controller = createViewController()
         willPush(controller)
@@ -52,6 +52,8 @@ extension PushPresenter {
         
         navigationController?.pushViewController(controller, animated: animated)        
         didPush(controller)
+        
+        return self
     }
 }
 

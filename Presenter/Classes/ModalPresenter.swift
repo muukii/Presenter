@@ -25,21 +25,34 @@ import UIKit
 public protocol ModalPresenter: PresenterType {
     
     var animated: Bool { get }
-    func parentController(viewController: UIViewController) -> UIViewController?
+    func parentController(viewController: ViewController) -> UIViewController?
+    func willPresent(viewController: ViewController)
+    func didPresent(viewController: ViewController)
 }
 
 extension ModalPresenter {
     
     public var animated: Bool { return true }
     
+    public func willPresent(viewController: ViewController) {
+        
+    }
+    
+    public func didPresent(viewController: ViewController) {
+        
+    }
+    
     public func present(presentingViewController: UIViewController, @noescape tweak: ModalTransaction<ViewController> -> Void = { _ in }) {
         
         let controller = createViewController()
+        willPresent(controller)
         tweak(ModalTransaction(viewController: controller))
         let presentController = parentController(controller) ?? controller
         
-        presentingViewController.presentViewController(presentController, animated: animated, completion: nil)
-        
+        presentingViewController.presentViewController(presentController, animated: animated, completion: {
+            
+            self.didPresent(controller)
+        })
     }
 }
 
@@ -48,7 +61,7 @@ public struct AnyModalPresenter<V: ModalPresenter>: ModalPresenter {
     public typealias ViewController = V.ViewController
     
     let createViewControllerClosure: () -> ViewController
-    let parentControllerClosure: UIViewController -> UIViewController?
+    let parentControllerClosure: ViewController -> UIViewController?
     
     public init<T: ModalPresenter where ViewController == T.ViewController>(source: T) {
         
@@ -56,7 +69,7 @@ public struct AnyModalPresenter<V: ModalPresenter>: ModalPresenter {
         parentControllerClosure = source.parentController
     }
     
-    public func parentController(viewController: UIViewController) -> UIViewController? {
+    public func parentController(viewController: ViewController) -> UIViewController? {
         return parentControllerClosure(viewController)
     }
     

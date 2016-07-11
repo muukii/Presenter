@@ -26,8 +26,8 @@ public struct ModalTransaction<T: UIViewController> {
     
     public weak var viewController: T?
     
-    public func dismiss() {
-        self.viewController?.dismissViewControllerAnimated(true, completion: nil)
+    public func dismiss(completion: () -> Void = { }) {
+        self.viewController?.dismissViewControllerAnimated(true, completion: completion)
     }
     
     public init(viewController: T) {

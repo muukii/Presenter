@@ -25,21 +25,33 @@ import UIKit
 public protocol PushPresenter: PresenterType {
     
     var animated: Bool { get }
+    func willPush(viewController: ViewController)
+    func didPush(viewController: ViewController)
 }
 
 extension PushPresenter {
     
     public var animated: Bool { return true }
     
+    public func willPush(viewController: ViewController) {
+        
+    }
+    
+    public func didPush(viewController: ViewController) {
+        
+    }
+    
     public func push(navigationController: UINavigationController?, @noescape tweak: PushTransaction<ViewController> -> Void = { _ in }) {
         
         let controller = createViewController()
+        willPush(controller)
         tweak(PushTransaction(viewController: controller))
         guard !(controller is UINavigationController) else {
             fatalError("Can't push UINavigationController")
         }
         
-        navigationController?.pushViewController(controller, animated: animated)
+        navigationController?.pushViewController(controller, animated: animated)        
+        didPush(controller)
     }
 }
 

@@ -62,7 +62,17 @@ extension MyViewController {
             let controller = MessagesViewController() // Init from Stroyboard or XIB
             controller.userID = userID
             return controller
-        }    
+        }  
+        
+        // Optional:
+        
+        public func willPush(viewController: MyViewController) {
+        
+        }
+    
+        public func didPush(viewController: MyViewController) {
+        
+        }
     }
 }
 ```
@@ -88,7 +98,17 @@ extension MyViewController {
             let controller = MessagesViewController() // Init from Stroyboard or XIB
             controller.userID = userID
             return controller
-        }    
+        }   
+        
+        // Optional
+        
+        public func willPresent(viewController: MyViewController) {
+        
+        }
+    
+        public func didPresent(viewController: MyViewController) {
+        
+        }
     }
 }
 ```
@@ -116,6 +136,24 @@ extension MyViewController {
             controller.userID = userID
             return controller
         }    
+        
+        // Optional
+        
+        public func willPresent(viewController: MyViewController) {
+        
+        }
+    
+        public func didPresent(viewController: MyViewController) {
+        
+        }
+        
+        public func willPush(viewController: MyViewController) {
+        
+        }
+    
+        public func didPush(viewController: MyViewController) {
+        
+        }
     }
 }
 ```

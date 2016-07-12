@@ -11,6 +11,8 @@ With Presenter, you can…
 - Assure that the ViewController's requirements are met, such as a ViewModel to be injected.
 - Constrain transition types (push or present modal or both)
 
+**This library is recommended to be used together with [Instantiatable](https://github.com/muukii/Instantiatable).**
+
 ## Usage
 
 ### Clean Screen Transition

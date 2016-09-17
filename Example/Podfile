@@ -1,11 +1,10 @@
 use_frameworks!
 
-target 'Presenter_Example', :exclusive => true do
+target 'Presenter_Example' do
   pod 'Presenter', :path => '../'
 end
 
-target 'Presenter_Tests', :exclusive => true do
+target 'Presenter_Tests' do
   pod 'Presenter', :path => '../'
-
   
 end

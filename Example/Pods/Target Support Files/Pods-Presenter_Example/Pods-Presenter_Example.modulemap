@@ -1,0 +1,6 @@
+framework module Pods_Presenter_Example {
+  umbrella header "Pods-Presenter_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

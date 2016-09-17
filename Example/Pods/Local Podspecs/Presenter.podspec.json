@@ -1,0 +1,24 @@
+{
+  "name": "Presenter",
+  "version": "0.1.0",
+  "summary": "A short description of Presenter.",
+  "description": "",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/Presenter",
+  "license": "MIT",
+  "authors": {
+    "muukii": "m@muukii.me"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/Presenter.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "Presenter/Classes/**/*",
+  "resource_bundles": {
+    "Presenter": [
+      "Presenter/Assets/*.png"
+    ]
+  }
+}

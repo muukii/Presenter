@@ -27,7 +27,7 @@ public struct PushTransaction<T: UIViewController> {
     public weak var viewController: T?
     
     public func pop() {
-        self.viewController?.navigationController?.popViewController(animated: true)
+        _ = self.viewController?.navigationController?.popViewController(animated: true)
     }
     
     public init(viewController: T) {

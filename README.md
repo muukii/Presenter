@@ -4,6 +4,7 @@
 [![Version](https://img.shields.io/cocoapods/v/Presenter.svg?style=flat)](http://cocoapods.org/pods/Presenter)
 [![License](https://img.shields.io/cocoapods/l/Presenter.svg?style=flat)](http://cocoapods.org/pods/Presenter)
 [![Platform](https://img.shields.io/cocoapods/p/Presenter.svg?style=flat)](http://cocoapods.org/pods/Presenter)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Screen transition with safe and clean code.
 

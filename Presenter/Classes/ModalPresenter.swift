@@ -25,31 +25,31 @@ import UIKit
 public protocol ModalPresenter: PresenterType {
     
     var animated: Bool { get }
-    func parentController(viewController: ViewController) -> UIViewController?
-    func willPresent(viewController: ViewController)
-    func didPresent(viewController: ViewController)
+    func parentController(_ viewController: ViewController) -> UIViewController?
+    func willPresent(_ viewController: ViewController)
+    func didPresent(_ viewController: ViewController)
 }
 
 extension ModalPresenter {
     
     public var animated: Bool { return true }
     
-    public func willPresent(viewController: ViewController) {
+    public func willPresent(_ viewController: ViewController) {
         
     }
     
-    public func didPresent(viewController: ViewController) {
+    public func didPresent(_ viewController: ViewController) {
         
     }
     
-    public func present(presentingViewController: UIViewController, @noescape tweak: ModalTransaction<ViewController> -> Void = { _ in }) -> Self {
+    public func present(_ presentingViewController: UIViewController, tweak: (ModalTransaction<ViewController>) -> Void = { _ in }) -> Self {
         
         let controller = createViewController()
         willPresent(controller)
         tweak(ModalTransaction(viewController: controller))
         let presentController = parentController(controller) ?? controller
         
-        presentingViewController.presentViewController(presentController, animated: animated, completion: {
+        presentingViewController.present(presentController, animated: animated, completion: {
             
             self.didPresent(controller)
         })
@@ -63,15 +63,15 @@ public struct AnyModalPresenter<V: ModalPresenter>: ModalPresenter {
     public typealias ViewController = V.ViewController
     
     let createViewControllerClosure: () -> ViewController
-    let parentControllerClosure: ViewController -> UIViewController?
+    let parentControllerClosure: (ViewController) -> UIViewController?
     
-    public init<T: ModalPresenter where ViewController == T.ViewController>(source: T) {
+    public init<T: ModalPresenter>(source: T) where ViewController == T.ViewController {
         
         createViewControllerClosure = source.createViewController
         parentControllerClosure = source.parentController
     }
     
-    public func parentController(viewController: ViewController) -> UIViewController? {
+    public func parentController(_ viewController: ViewController) -> UIViewController? {
         return parentControllerClosure(viewController)
     }
     

@@ -25,23 +25,23 @@ import UIKit
 public protocol PushPresenter: PresenterType {
     
     var animated: Bool { get }
-    func willPush(viewController: ViewController)
-    func didPush(viewController: ViewController)
+    func willPush(_ viewController: ViewController)
+    func didPush(_ viewController: ViewController)
 }
 
 extension PushPresenter {
     
     public var animated: Bool { return true }
     
-    public func willPush(viewController: ViewController) {
+    public func willPush(_ viewController: ViewController) {
         
     }
     
-    public func didPush(viewController: ViewController) {
+    public func didPush(_ viewController: ViewController) {
         
     }
     
-    public func push(navigationController: UINavigationController?, @noescape tweak: PushTransaction<ViewController> -> Void = { _ in }) -> Self {
+    public func push(_ navigationController: UINavigationController?, tweak: (PushTransaction<ViewController>) -> Void = { _ in }) -> Self {
         
         let controller = createViewController()
         willPush(controller)
@@ -63,7 +63,7 @@ public struct AnyPushPresenter<V: PushPresenter>: PushPresenter {
     
     let createViewControllerClosure: () -> ViewController
     
-    public init<T: ModalPresenter where ViewController == T.ViewController>(source: T) {
+    public init<T: ModalPresenter>(source: T) where ViewController == T.ViewController {
         
         createViewControllerClosure = source.createViewController
     }

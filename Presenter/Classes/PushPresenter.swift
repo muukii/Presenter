@@ -41,6 +41,7 @@ extension PushPresenter {
         
     }
     
+    @discardableResult
     public func push(_ navigationController: UINavigationController?, tweak: (PushTransaction<ViewController>) -> Void = { _ in }) -> Self {
         
         let controller = createViewController()

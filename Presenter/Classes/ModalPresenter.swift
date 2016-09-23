@@ -42,6 +42,7 @@ extension ModalPresenter {
         
     }
     
+    @discardableResult
     public func present(_ presentingViewController: UIViewController, tweak: (ModalTransaction<ViewController>) -> Void = { _ in }) -> Self {
         
         let controller = createViewController()

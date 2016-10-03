@@ -41,6 +41,7 @@ extension PushPresenter {
         
     }
     
+    @available(*, deprecated: 1.0, message: "use push(on: )")
     @discardableResult
     public func push(_ navigationController: UINavigationController?, tweak: (PushTransaction<ViewController>) -> Void = { _ in }) -> Self {
         
@@ -55,6 +56,26 @@ extension PushPresenter {
         didPush(controller)
         
         return self
+    }
+    
+    @discardableResult
+    public func push(on navigationController: UINavigationController?, _ willPushTweak: (PushTransaction<ViewController>) -> Void = { _ in }) -> PushTransaction<ViewController> {
+        
+        let controller = createViewController()
+        willPush(controller)
+        
+        let transaction = PushTransaction(viewController: controller)
+        
+        willPushTweak(transaction)
+        guard !(controller is UINavigationController) else {
+            fatalError("Can't push UINavigationController")
+        }
+        
+        navigationController?.pushViewController(controller, animated: animated)
+        
+        didPush(controller)
+        
+        return transaction
     }
 }
 

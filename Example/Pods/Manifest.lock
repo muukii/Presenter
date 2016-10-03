@@ -1,5 +1,5 @@
 PODS:
-  - Presenter (0.3.0)
+  - Presenter (1.0.0)
 
 DEPENDENCIES:
   - Presenter (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Presenter: 0d7d65d323ee9817166fcb01b8ddbd90ee713ff4
+  Presenter: 42335d4b011649ffb64da09d4d1796b5cffbc99a
 
 PODFILE CHECKSUM: 6f315b1f8b6c1f60b6b48b7234757916dc7301c6
 

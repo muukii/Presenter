@@ -42,6 +42,7 @@ extension ModalPresenter {
         
     }
     
+    @available(*, deprecated: 1.0, message: "use present(on: )")
     @discardableResult
     public func present(_ presentingViewController: UIViewController, tweak: (ModalTransaction<ViewController>) -> Void = { _ in }) -> Self {
         
@@ -56,6 +57,24 @@ extension ModalPresenter {
         })
         
         return self
+    }
+    
+    @discardableResult
+    public func present(on presentingViewController: UIViewController, willPresentTweak: (ModalTransaction<ViewController>) -> Void = { _ in }) -> ModalTransaction<ViewController> {
+        
+        let controller = createViewController()
+        willPresent(controller)
+        
+        let transaction = ModalTransaction(viewController: controller)
+        willPresentTweak(transaction)
+        let presentController = parentController(controller) ?? controller
+        
+        presentingViewController.present(presentController, animated: animated, completion: {
+            
+            self.didPresent(controller)
+        })
+        
+        return transaction
     }
 }
 

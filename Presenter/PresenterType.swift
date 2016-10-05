@@ -24,6 +24,6 @@ import UIKit
 
 public protocol PresenterType {
     
-    associatedtype ViewController: UIViewController
+    associatedtype ViewController: UIViewController, PresenterCompatible
     func createViewController() -> ViewController
 }

@@ -24,14 +24,11 @@ import UIKit
 
 public protocol PushPresenter: PresenterType {
     
-    var animated: Bool { get }
     func willPush(_ viewController: ViewController)
     func didPush(_ viewController: ViewController)
 }
 
 extension PushPresenter {
-    
-    public var animated: Bool { return true }
     
     public func willPush(_ viewController: ViewController) {
         
@@ -40,31 +37,16 @@ extension PushPresenter {
     public func didPush(_ viewController: ViewController) {
         
     }
-    
-    @available(*, deprecated: 1.0, message: "use push(on: )")
+        
     @discardableResult
-    public func push(_ navigationController: UINavigationController?, tweak: (PushTransaction<ViewController>) -> Void = { _ in }) -> Self {
-        
-        let controller = createViewController()
-        willPush(controller)
-        tweak(PushTransaction(viewController: controller))
-        guard !(controller is UINavigationController) else {
-            fatalError("Can't push UINavigationController")
-        }
-        
-        navigationController?.pushViewController(controller, animated: animated)        
-        didPush(controller)
-        
-        return self
-    }
-    
-    @discardableResult
-    public func push(on navigationController: UINavigationController?, _ willPushTweak: (PushTransaction<ViewController>) -> Void = { _ in }) -> PushTransaction<ViewController> {
+    public func push(on navigationController: UINavigationController?, animated: Bool,  _ willPushTweak: (PushTransaction<ViewController>) -> Void = { _ in }) -> PushTransaction<ViewController> {
         
         let controller = createViewController()
         willPush(controller)
         
         let transaction = PushTransaction(viewController: controller)
+        
+        controller.pushTransaction = transaction
         
         willPushTweak(transaction)
         guard !(controller is UINavigationController) else {

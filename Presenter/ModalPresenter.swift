@@ -24,16 +24,13 @@ import UIKit
 
 public protocol ModalPresenter: PresenterType {
     
-    var animated: Bool { get }
     func parentController(_ viewController: ViewController) -> UIViewController?
     func willPresent(_ viewController: ViewController)
     func didPresent(_ viewController: ViewController)
 }
 
 extension ModalPresenter {
-    
-    public var animated: Bool { return true }
-    
+        
     public func willPresent(_ viewController: ViewController) {
         
     }
@@ -42,31 +39,17 @@ extension ModalPresenter {
         
     }
     
-    @available(*, deprecated: 1.0, message: "use present(on: )")
     @discardableResult
-    public func present(_ presentingViewController: UIViewController, tweak: (ModalTransaction<ViewController>) -> Void = { _ in }) -> Self {
-        
-        let controller = createViewController()
-        willPresent(controller)
-        tweak(ModalTransaction(viewController: controller))
-        let presentController = parentController(controller) ?? controller
-        
-        presentingViewController.present(presentController, animated: animated, completion: {
-            
-            self.didPresent(controller)
-        })
-        
-        return self
-    }
-    
-    @discardableResult
-    public func present(on presentingViewController: UIViewController, willPresentTweak: (ModalTransaction<ViewController>) -> Void = { _ in }) -> ModalTransaction<ViewController> {
+    public func present(on presentingViewController: UIViewController, animated: Bool, willPresentTweak: (ModalTransaction<ViewController>) -> Void = { _ in }) -> ModalTransaction<ViewController> {
         
         let controller = createViewController()
         willPresent(controller)
         
         let transaction = ModalTransaction(viewController: controller)
         willPresentTweak(transaction)
+        
+        controller.modalTransaction = transaction
+        
         let presentController = parentController(controller) ?? controller
         
         presentingViewController.present(presentController, animated: animated, completion: {

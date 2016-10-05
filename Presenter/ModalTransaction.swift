@@ -1,4 +1,4 @@
-// PushTransaction.swift
+// ModalTransaction.swift
 //
 // Copyright (c) 2015 muukii
 //
@@ -20,14 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-public struct PushTransaction<T: UIViewController> {
+public struct ModalTransaction<T: UIViewController> {
     
     public weak var viewController: T?
     
-    public func pop() {
-        _ = self.viewController?.navigationController?.popViewController(animated: true)
+    public func dismiss(animated: Bool, completion: @escaping () -> Void = { }) {
+        self.viewController?.dismiss(animated: animated, completion: completion)
     }
     
     public init(viewController: T) {

@@ -48,7 +48,7 @@ extension ModalPresenter {
         let transaction = ModalTransaction(viewController: controller)
         willPresentTweak(transaction)
         
-        controller.modalTransaction = transaction
+        controller.presentOperation = .modal
         
         let presentController = parentController(controller) ?? controller
         

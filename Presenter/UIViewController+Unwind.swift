@@ -9,57 +9,43 @@
 import Foundation
 import UIKit
 
-public protocol PresenterCompatible: class {
+extension UIViewController {
     
-}
-
-extension UIViewController: PresenterCompatible {
-    
-}
-
-extension PresenterCompatible where Self : UIViewController {
-    
-    public var pushTransaction: PushTransaction<Self>? {
+    public var presentOperation: PresentOperation? {
         get {
-             return objc_getAssociatedObject(self, &PresenterCompatibleStoredProperties.pushTransaction) as? PushTransaction<Self>
+            return objc_getAssociatedObject(self, &PresenterStoredProperties.presentOperation) as? PresentOperation
         }
         set {
+            print(newValue)
             objc_setAssociatedObject(
                 self,
-                &PresenterCompatibleStoredProperties.pushTransaction,
+                &PresenterStoredProperties.presentOperation,
                 newValue,
                 objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    
-    public var modalTransaction: ModalTransaction<Self>? {
-        get {
-            return objc_getAssociatedObject(self, &PresenterCompatibleStoredProperties.modalTransaction) as? ModalTransaction<Self>
-        }
-        set {
-            objc_setAssociatedObject(
-                self,
-                &PresenterCompatibleStoredProperties.modalTransaction,
-                newValue,
-                objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }    
 }
 
-private enum PresenterCompatibleStoredProperties {
-    
-    static var pushTransaction: Void?
-    static var modalTransaction: Void?
+public enum PresentOperation {
+    case modal
+    case push
+}
+
+private enum PresenterStoredProperties {
+
+    static var presentOperation: Void?
 }
 
 extension UIViewController {
     
     public func unwind(animated: Bool, completion: @escaping () -> Void = {}) {
-        if let pushTransaction = pushTransaction {
-            pushTransaction.pop(animated: animated)
-        }
-        if let modalTransaction = modalTransaction {
-            modalTransaction.dismiss(animated: animated, completion: completion)
+        switch presentOperation {
+        case .modal?:
+            dismiss(animated: animated, completion: completion)
+        case .push?:
+            _ = navigationController?.popViewController(animated: true)
+        default:
+            break
         }
     }
 }

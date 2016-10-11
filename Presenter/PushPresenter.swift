@@ -46,7 +46,7 @@ extension PushPresenter {
         
         let transaction = PushTransaction(viewController: controller)
         
-        controller.pushTransaction = transaction
+        controller.presentOperation = .push
         
         willPushTweak(transaction)
         guard !(controller is UINavigationController) else {

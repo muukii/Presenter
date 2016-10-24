@@ -18,7 +18,7 @@ class ToViewController: UIViewController {
     
     class Presenter: ModalPresenter {
         
-        func parentController(_ viewController: ToViewController) -> UIViewController? {
+        func parentController(viewController: ToViewController) -> UIViewController? {
             return nil
         }
         

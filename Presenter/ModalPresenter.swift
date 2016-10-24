@@ -24,18 +24,18 @@ import UIKit
 
 public protocol ModalPresenter: PresenterType {
     
-    func parentController(_ viewController: ViewController) -> UIViewController?
-    func willPresent(_ viewController: ViewController)
-    func didPresent(_ viewController: ViewController)
+    func parentController(viewController: ViewController) -> UIViewController?
+    func willPresent(presentedViewController: ViewController, presentingViewController: UIViewController)
+    func didPresent(presentedViewController: ViewController, presentingViewController: UIViewController)
 }
 
 extension ModalPresenter {
         
-    public func willPresent(_ viewController: ViewController) {
+    public func willPresent(presentedViewController: ViewController, presentingViewController: UIViewController) {
         
     }
     
-    public func didPresent(_ viewController: ViewController) {
+    public func didPresent(presentedViewController: ViewController, presentingViewController: UIViewController) {
         
     }
     
@@ -43,18 +43,18 @@ extension ModalPresenter {
     public func present(on presentingViewController: UIViewController, animated: Bool, willPresentTweak: (ModalTransaction<ViewController>) -> Void = { _ in }) -> ModalTransaction<ViewController> {
         
         let controller = createViewController()
-        willPresent(controller)
+        willPresent(presentedViewController: controller, presentingViewController: presentingViewController)
         
         let transaction = ModalTransaction(viewController: controller)
         willPresentTweak(transaction)
         
         controller.presentOperation = .modal
         
-        let presentController = parentController(controller) ?? controller
+        let presentController = parentController(viewController: controller) ?? controller
         
         presentingViewController.present(presentController, animated: animated, completion: {
             
-            self.didPresent(controller)
+            self.didPresent(presentedViewController: controller, presentingViewController: presentingViewController)
         })
         
         return transaction
@@ -74,7 +74,7 @@ public struct AnyModalPresenter<V: ModalPresenter>: ModalPresenter {
         parentControllerClosure = source.parentController
     }
     
-    public func parentController(_ viewController: ViewController) -> UIViewController? {
+    public func parentController(viewController: ViewController) -> UIViewController? {
         return parentControllerClosure(viewController)
     }
     

@@ -57,7 +57,8 @@ extension ModalPresenter {
         
         let presentController = parentController(viewController: controller) ?? controller
         
-        presentController.transitioningDelegate = transitioningDelegate
+        let _transitioningDelegate = transitioningDelegate
+        presentController.transitioningDelegate = _transitioningDelegate
         
         presentingViewController.present(presentController, animated: animated, completion: {
             

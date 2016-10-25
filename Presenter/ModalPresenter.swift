@@ -59,9 +59,9 @@ extension ModalPresenter {
         
         let _transitioningDelegate = transitioningDelegate
         
-        withExtendedLifetime(_transitioningDelegate) { () -> Void in
+        withExtendedLifetime(_transitioningDelegate) { (delegate: UIViewControllerTransitioningDelegate?) -> Void in
             
-            presentController.transitioningDelegate = _transitioningDelegate
+            presentController.transitioningDelegate = delegate
             
             presentingViewController.present(presentController, animated: animated, completion: {
                 

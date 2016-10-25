@@ -58,12 +58,16 @@ extension ModalPresenter {
         let presentController = parentController(viewController: controller) ?? controller
         
         let _transitioningDelegate = transitioningDelegate
-        presentController.transitioningDelegate = _transitioningDelegate
         
-        presentingViewController.present(presentController, animated: animated, completion: {
+        withExtendedLifetime(_transitioningDelegate) { () -> Void in
             
-            self.didPresent(presentedViewController: controller, presentingViewController: presentingViewController)
-        })
+            presentController.transitioningDelegate = _transitioningDelegate
+            
+            presentingViewController.present(presentController, animated: animated, completion: {
+                
+                self.didPresent(presentedViewController: controller, presentingViewController: presentingViewController)
+            })
+        }
         
         return transaction
     }

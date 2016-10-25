@@ -27,10 +27,15 @@ public protocol ModalPresenter: PresenterType {
     func parentController(viewController: ViewController) -> UIViewController?
     func willPresent(presentedViewController: ViewController, presentingViewController: UIViewController)
     func didPresent(presentedViewController: ViewController, presentingViewController: UIViewController)
+    var transitioningDelegate: UIViewControllerTransitioningDelegate? { get }
 }
 
 extension ModalPresenter {
-        
+    
+    public var transitioningDelegate: UIViewControllerTransitioningDelegate? {
+        return nil
+    }
+    
     public func willPresent(presentedViewController: ViewController, presentingViewController: UIViewController) {
         
     }
@@ -52,6 +57,8 @@ extension ModalPresenter {
         
         let presentController = parentController(viewController: controller) ?? controller
         
+        presentController.transitioningDelegate = transitioningDelegate
+        
         presentingViewController.present(presentController, animated: animated, completion: {
             
             self.didPresent(presentedViewController: controller, presentingViewController: presentingViewController)
@@ -61,6 +68,7 @@ extension ModalPresenter {
     }
 }
 
+/*
 public struct AnyModalPresenter<V: ModalPresenter>: ModalPresenter {
     
     public typealias ViewController = V.ViewController
@@ -82,3 +90,4 @@ public struct AnyModalPresenter<V: ModalPresenter>: ModalPresenter {
         return createViewControllerClosure()
     }
 }
+*/

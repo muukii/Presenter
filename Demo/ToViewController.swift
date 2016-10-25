@@ -17,6 +17,9 @@ class ToViewController: UIViewController {
     }
     
     class Presenter: ModalPresenter {
+        public var transitioningDelegate: UIViewControllerTransitioningDelegate? {
+            return nil
+        }
         
         func parentController(viewController: ToViewController) -> UIViewController? {
             return nil

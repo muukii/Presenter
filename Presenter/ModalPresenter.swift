@@ -27,14 +27,9 @@ public protocol ModalPresenter: PresenterType {
     func parentController(viewController: ViewController) -> UIViewController?
     func willPresent(presentedViewController: ViewController, presentingViewController: UIViewController)
     func didPresent(presentedViewController: ViewController, presentingViewController: UIViewController)
-    var transitioningDelegate: UIViewControllerTransitioningDelegate? { get }
 }
 
 extension ModalPresenter {
-    
-    public var transitioningDelegate: UIViewControllerTransitioningDelegate? {
-        return nil
-    }
     
     public func willPresent(presentedViewController: ViewController, presentingViewController: UIViewController) {
         
@@ -45,7 +40,7 @@ extension ModalPresenter {
     }
     
     @discardableResult
-    public func present(on presentingViewController: UIViewController, animated: Bool, willPresentTweak: (ModalTransaction<ViewController>) -> Void = { _ in }) -> ModalTransaction<ViewController> {
+    public final func present(on presentingViewController: UIViewController, animated: Bool, willPresentTweak: (ModalTransaction<ViewController>) -> Void = { _ in }) -> ModalTransaction<ViewController> {
         
         let controller = createViewController()
         willPresent(presentedViewController: controller, presentingViewController: presentingViewController)
@@ -57,17 +52,10 @@ extension ModalPresenter {
         
         let presentController = parentController(viewController: controller) ?? controller
         
-        let _transitioningDelegate = transitioningDelegate
-        
-        withExtendedLifetime(_transitioningDelegate) { (delegate: UIViewControllerTransitioningDelegate?) -> Void in
+        presentingViewController.present(presentController, animated: animated, completion: {
             
-            presentController.transitioningDelegate = delegate
-            
-            presentingViewController.present(presentController, animated: animated, completion: {
-                
-                self.didPresent(presentedViewController: controller, presentingViewController: presentingViewController)
-            })
-        }
+            self.didPresent(presentedViewController: controller, presentingViewController: presentingViewController)
+        })
         
         return transaction
     }

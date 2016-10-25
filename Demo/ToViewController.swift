@@ -18,7 +18,7 @@ class ToViewController: UIViewController {
     
     class Presenter: ModalPresenter {
         public var transitioningDelegate: UIViewControllerTransitioningDelegate? {
-            return nil
+            return Delegate()
         }
         
         func parentController(viewController: ToViewController) -> UIViewController? {
@@ -29,5 +29,27 @@ class ToViewController: UIViewController {
             let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ToViewController") as! ToViewController
             return controller
         }
+    }
+}
+
+class Delegate: NSObject, UIViewControllerTransitioningDelegate {
+    
+    deinit {
+        print("deinit")
+    }
+    
+    open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        return nil
+    }
+    
+    open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+         return nil
+    }
+    
+    open func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        
+        return nil
     }
 }
